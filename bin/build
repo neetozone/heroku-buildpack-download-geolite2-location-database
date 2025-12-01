@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo ""
+echo "[NeetoDeploy IP Location Buildpack]"
+
+# Download the GeoLite2 City database
+# The file will be placed in the app directory (CNB_APP_DIR)
+APP_DIR=${CNB_APP_DIR:-/workspace}
+
+echo "       ip-location: Downloading GeoLite2-City.mmdb"
+if ! wget -q https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb -O "$APP_DIR/GeoLite2-City.mmdb"; then
+  echo " !     ip-location: Failed to download GeoLite2-City.mmdb"
+  exit 1
+fi
+
+echo "       ip-location: Successfully downloaded GeoLite2-City.mmdb"
+ls -lh "$APP_DIR/GeoLite2-City.mmdb"
+
+exit 0
+
